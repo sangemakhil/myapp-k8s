@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Survey Form</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+</head>
+<body class="w3-light-grey">
+
+<!-- Content Container -->
+<div class="w3-content" style="max-width:1400px">
+
+<!-- Header -->
+<header class="w3-container w3-center w3-padding-32"> 
+  <h1><b>Student Survey Form</b></h1>
+  <p>Welcome to the <span class="w3-tag">University Survey</span></p>
+</header>
+
+<!-- Survey Form Section -->
+<div class="w3-row">
+<div class="w3-col l12 s12">
+  <div class="w3-card-4 w3-margin w3-white w3-padding">
+    
+    <form action="/submit_survey" method="POST">
+      <h3>Personal Information</h3>
+      <!-- Text fields -->
+      <p><label>First Name</label><input class="w3-input w3-border" type="text" name="first_name" required></p>
+      <p><label>Last Name</label><input class="w3-input w3-border" type="text" name="last_name" required></p>
+      <p><label>Street Address</label><input class="w3-input w3-border" type="text" name="street_address" required></p>
+      <p><label>City</label><input class="w3-input w3-border" type="text" name="city" required></p>
+      <p><label>State</label><input class="w3-input w3-border" type="text" name="state" required></p>
+      <!-- ZIP Code -->
+<p><label>ZIP Code</label>
+<input class="w3-input w3-border" type="number" name="zip" required 
+       min="0" pattern="\d*" title="Only numbers are allowed"></p>
+
+<!-- Telephone Number -->
+<p><label>Telephone Number</label>
+<input class="w3-input w3-border" type="tel" name="telephone" required 
+       pattern="\d*" title="Only numbers are allowed"></p>
+
+      <p><label>Email</label><input class="w3-input w3-border" type="email" name="email" required></p>
+      <p><label>Date of Survey</label><input class="w3-input w3-border" type="date" name="date_of_survey" required></p>
+      
+      <!-- Checkboxes -->
+      <h3>What did you like most about the campus?</h3>
+      <p><input class="w3-check" type="checkbox" name="like" value="students"> Students</p>
+      <p><input class="w3-check" type="checkbox" name="like" value="location"> Location</p>
+      <p><input class="w3-check" type="checkbox" name="like" value="campus"> Campus</p>
+      <p><input class="w3-check" type="checkbox" name="like" value="atmosphere"> Atmosphere</p>
+      <p><input class="w3-check" type="checkbox" name="like" value="dorm_rooms"> Dorm Rooms</p>
+      <p><input class="w3-check" type="checkbox" name="like" value="sports"> Sports</p>
+      
+      <!-- Radio Buttons -->
+      <h3>How did you become interested in the university?</h3>
+      <p><input class="w3-radio" type="radio" name="interest" value="friends" required> Friends</p>
+      <p><input class="w3-radio" type="radio" name="interest" value="television"> Television</p>
+      <p><input class="w3-radio" type="radio" name="interest" value="internet"> Internet</p>
+      <p><input class="w3-radio" type="radio" name="interest" value="other"> Other</p>
+      
+      <!-- Dropdown Menu -->
+      <h3>How likely are you to recommend this school to others?</h3>
+      <p>
+        <select class="w3-select w3-border" name="recommendation" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="very_likely">Very Likely</option>
+          <option value="likely">Likely</option>
+          <option value="unlikely">Unlikely</option>
+        </select>
+      </p>
+      
+      <!-- Raffle Field -->
+      <h3>Raffle</h3>
+      <p><label>Enter at least 10 comma-separated numbers (1-100)</label><input class="w3-input w3-border" type="text" name="raffle" required></p>
+      
+      <!-- Text Area for Additional Comments -->
+      <h3>Additional Comments</h3>
+      <p><textarea class="w3-input w3-border" name="comments" rows="5"></textarea></p>
+      
+      <!-- Submit and Cancel Buttons -->
+      <p>
+        <button class="w3-button w3-green" type="submit">Submit</button>
+        <button class="w3-button w3-red" type="reset">Cancel</button>
+      </p>
+      
+    </form>
+  </div>
+</div>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top">
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+</footer>
+
+</body>
+</html>
