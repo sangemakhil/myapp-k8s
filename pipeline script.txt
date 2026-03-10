@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+    environment {
+        AWS_REGION = 'us-east-2'
+        ECR_REPO_URI = '746669194487.dkr.ecr.us-east-2.amazonaws.com/myapp'
+    }
+    stages {
+        stage('Clone Repository') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: '816e4e6b-8f72-4730-aa53-7331da120071', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+                    git url: 'https://github.com/sangemakhil/myapp-k8s.git', credentialsId: '816e4e6b-8f72-4730-aa53-7331da120071'
+                }
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // This line correctly specifies the Dockerfile path and build context
+                    sh 'docker build -t myapp:latest -f my-web-app/Dockerfile my-web-app/'
+                    sh 'docker tag myapp:latest ${ECR_REPO_URI}:latest'
+                }
+            }
+        }
+        stage('Push to ECR') {
+            steps {
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY', credentialsId: '4b5f477a-56e9-4356-8992-738026060b84')]) {
+                    script {
+                        sh 'aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO_URI'
+                        sh 'docker push ${ECR_REPO_URI}:latest'
+                    }
+                }
+            }
+        }
+        stage('Deploy to Kubernetes') {
+            steps {
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY', credentialsId: '4b5f477a-56e9-4356-8992-738026060b84')]) {
+                    withEnv(["KUBECONFIG=/var/lib/jenkins/.kube/config"]) {
+                        sh 'kubectl apply -f k8s-deployment/deployment.yaml --validate=false'
+                        sh 'kubectl apply -f k8s-deployment/service.yaml --validate=false'
+                    }
+                }
+            }
+        }
+    }
+}
